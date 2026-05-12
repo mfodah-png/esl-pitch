@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ESL Egypt — Étude Rentabilité | SuccessBridge × ETAG</title>
+<style>
+:root{--navy:#0D1B2A;--blue:#1A73E8;--gold:#FFD200;--gold2:#F7971E;--green:#00C07F;--red:#FF4B4B;--glass:rgba(255,255,255,.07);--glb:rgba(255,255,255,.13);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;background:var(--navy);color:#fff;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;}
+/* SLIDES */
+#deck{width:100%;height:100%;position:relative;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 60px;opacity:0;pointer-events:none;transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);transform:translateY(30px);}
+.slide.active{opacity:1;pointer-events:all;transform:none;}
+/* BG GRADIENTS PER SLIDE */
+.slide:nth-child(1){background:radial-gradient(ellipse at 30% 60%,#1A3A5C 0%,var(--navy) 65%);}
+.slide:nth-child(2){background:radial-gradient(ellipse at 70% 40%,#2D1B00 0%,var(--navy) 65%);}
+.slide:nth-child(3){background:radial-gradient(ellipse at 30% 70%,#0A2D1A 0%,var(--navy) 65%);}
+.slide:nth-child(4){background:radial-gradient(ellipse at 60% 30%,#1B0A2D 0%,var(--navy) 65%);}
+.slide:nth-child(5){background:radial-gradient(ellipse at 40% 60%,#001833 0%,var(--navy) 65%);}
+.slide:nth-child(6){background:radial-gradient(ellipse at 50% 50%,#1A1A00 0%,var(--navy) 65%);}
+.slide:nth-child(7){background:radial-gradient(ellipse at 50% 50%,#0D1B2A 0%,#000 65%);}
+/* PARTICLES */
+#pts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.pt{position:absolute;border-radius:50%;animation:rise linear infinite;opacity:0;}
+@keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.25}90%{opacity:.08}100%{transform:translateY(-5vh) scale(1.3);opacity:0}}
+/* NAV */
+#nav{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:14px 40px 18px;display:flex;align-items:center;gap:14px;background:linear-gradient(0deg,rgba(3,3,12,.97) 70%,transparent);}
+#dots{display:flex;gap:7px;margin-right:auto;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);}
+.dot.on{background:var(--gold);width:24px;border-radius:5px;}
+.nbtn{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:50%;width:44px;height:44px;cursor:pointer;font-size:1.1em;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+.nbtn:hover{background:rgba(255,255,255,.18);transform:scale(1.08);}
+#snum{font-size:.78em;color:rgba(255,255,255,.4);min-width:50px;text-align:center;font-family:monospace;}
+#logo{position:fixed;top:18px;left:40px;z-index:100;font-size:.75em;opacity:.55;letter-spacing:.5px;}
+#logo span{color:var(--gold);}
+/* TYPOGRAPHY */
+.hero{font-size:clamp(1.8em,4.5vw,3.2em);font-weight:900;line-height:1.15;text-align:center;}
+.sub{font-size:clamp(.9em,1.8vw,1.2em);opacity:.75;text-align:center;max-width:700px;line-height:1.7;}
+.gold{color:var(--gold);} .green{color:var(--green);} .red{color:var(--red);} .blue{color:var(--blue);}
+.tag{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.72em;font-weight:700;letter-spacing:.5px;}
+.tag-gold{background:rgba(255,210,0,.15);color:var(--gold);border:1px solid rgba(255,210,0,.35);}
+.tag-red{background:rgba(255,75,75,.15);color:var(--red);border:1px solid rgba(255,75,75,.35);}
+.tag-green{background:rgba(0,192,127,.15);color:var(--green);border:1px solid rgba(0,192,127,.35);}
+/* GLASS CARD */
+.gl{background:var(--glass);border:1px solid var(--glb);border-radius:16px;padding:24px 28px;backdrop-filter:blur(10px);}
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;max-width:1100px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;width:100%;max-width:1100px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:100%;max-width:1100px;}
+/* BIG STAT */
+.stat-big{font-size:clamp(1.6em,3.2vw,2.4em);font-weight:900;color:var(--gold);}
+.stat-lbl{font-size:.78em;opacity:.65;margin-top:4px;}
+/* DIVIDER */
+.div{width:60px;height:3px;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:3px;margin:14px auto;}
+/* ICON CIRCLE */
+.ico{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5em;flex-shrink:0;}
+.ico-gold{background:rgba(255,210,0,.15);border:1px solid rgba(255,210,0,.3);}
+.ico-red{background:rgba(255,75,75,.12);border:1px solid rgba(255,75,75,.3);}
+.ico-green{background:rgba(0,192,127,.12);border:1px solid rgba(0,192,127,.3);}
+.ico-blue{background:rgba(26,115,232,.12);border:1px solid rgba(26,115,232,.3);}
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:.88em;}
+.tbl th{padding:10px 14px;text-align:right;font-weight:700;border-bottom:2px solid rgba(255,210,0,.3);color:var(--gold);font-size:.82em;letter-spacing:.3px;}
+.tbl th:first-child{text-align:left;}
+.tbl td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right;}
+.tbl td:first-child{text-align:left;opacity:.85;}
+.tbl tr:last-child td{border-bottom:none;font-weight:700;color:var(--gold);}
+.tbl tr:hover td{background:rgba(255,255,255,.04);}
+/* ROI CALC */
+.calc-row{display:flex;align-items:center;gap:12px;width:100%;}
+.calc-lbl{font-size:.82em;opacity:.7;min-width:200px;}
+input[type=range]{flex:1;accent-color:var(--gold);cursor:pointer;height:4px;}
+.calc-val{font-size:.9em;font-weight:700;min-width:120px;text-align:right;color:var(--gold);}
+.result-box{background:linear-gradient(135deg,rgba(255,210,0,.12),rgba(247,151,30,.08));border:1px solid rgba(255,210,0,.3);border-radius:12px;padding:16px 24px;display:flex;justify-content:space-around;align-items:center;width:100%;margin-top:8px;}
+.rb-item{text-align:center;}
+.rb-val{font-size:clamp(1.3em,2.5vw,2em);font-weight:900;color:var(--gold);}
+.rb-lbl{font-size:.72em;opacity:.65;margin-top:3px;}
+/* PROGRESS BAR */
+.bar-wrap{background:rgba(255,255,255,.08);border-radius:20px;height:10px;width:100%;margin-top:6px;}
+.bar-fill{height:10px;border-radius:20px;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .6s cubic-bezier(.22,1,.36,1);}
+/* COMPARE */
+.cmp-hdr{font-size:.72em;font-weight:700;text-align:center;opacity:.55;letter-spacing:.5px;margin-bottom:6px;}
+.cmp-val{font-size:clamp(1em,2vw,1.5em);font-weight:900;text-align:center;}
+.cmp-sub{font-size:.72em;text-align:center;opacity:.6;margin-top:4px;}
+/* ANIMATIONS */
+@keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes sh{0%{background-position:200% center}100%{background-position:-200% center}}
+.au{animation:fu .6s cubic-bezier(.22,1,.36,1) both;}
+.ap{animation:pop .5s cubic-bezier(.34,1.56,.64,1) both;}
+.af{animation:flt 3.5s ease infinite;}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}.d5{animation-delay:.5s}.d6{animation-delay:.6s}.d7{animation-delay:.7s}.d8{animation-delay:.8s}
+/* SHINE */
+.shine{background:linear-gradient(90deg,var(--gold2),var(--gold),var(--gold2));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 3s linear infinite;}
+/* BADGE */
+.bdg{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:.75em;font-weight:700;}
+/* LOGO BRANDS */
+.brand{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-weight:700;font-size:.95em;}
+/* TIMELINE */
+.tl{display:flex;gap:0;width:100%;max-width:900px;position:relative;}
+.tl::before{content:'';position:absolute;top:22px;left:22px;right:22px;height:2px;background:rgba(255,210,0,.25);}
+.tl-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.tl-dot{width:44px;height:44px;border-radius:50%;background:rgba(255,210,0,.15);border:2px solid rgba(255,210,0,.5);display:flex;align-items:center;justify-content:center;font-size:.9em;font-weight:900;color:var(--gold);z-index:1;}
+.tl-lbl{font-size:.72em;text-align:center;opacity:.75;max-width:90px;}
+</style>
+</head>
+<body>
+<div id="pts"></div>
+<div id="logo">Success<span>Bridge</span> × <span>ETAG</span></div>
+
+<div id="deck">
+
+<!-- SLIDE 1 : TITRE -->
+<div class="slide active">
+  <div class="au" style="font-size:.8em;margin-bottom:18px;">
+    <div class="bdg" style="background:rgba(255,210,0,.12);border:1px solid rgba(255,210,0,.3);color:var(--gold);">
+      🇪🇬 &nbsp;Marché Égypte — Mai 2026 &nbsp;|&nbsp; Confidentiel
+    </div>
+  </div>
+  <div class="hero au d1" style="max-width:800px;">
+    L'étiquetage papier vous coûte<br>
+    <span class="shine">bien plus que vous ne pensez</span>
+  </div>
+  <div class="div au d2"></div>
+  <div class="sub au d3">
+    Étude financière complète · Electronic Shelf Labels (ESL)<br>
+    <span style="opacity:.5">SuccessBridge × ETAG pour Metro Market · Spinney's · Hyper One</span>
+  </div>
+  <div class="au d4" style="display:flex;gap:16px;margin-top:30px;flex-wrap:wrap;justify-content:center;">
+    <div class="brand"><span style="font-size:1.3em">🏪</span> Metro Market</div>
+    <div class="brand"><span style="font-size:1.3em">🛒</span> Spinney's</div>
+    <div class="brand"><span style="font-size:1.3em">🏬</span> Hyper One</div>
+  </div>
+  <div class="au d5" style="margin-top:40px;font-size:.75em;opacity:.4;">Source : Nielsen Egypt · GS1 · Banque Centrale d'Égypte · SuccessBridge — 2026</div>
+</div>
+
+<!-- SLIDE 2 : LE PROBLÈME -->
+<div class="slide">
+  <div class="tag tag-red au" style="margin-bottom:16px;">⚠️ &nbsp;LE COÛT CACHÉ DU PAPIER</div>
+  <div class="hero au d1" style="font-size:clamp(1.4em,3.5vw,2.4em);max-width:850px;">
+    Votre magasin <span class="red">gaspille</span> chaque mois<br>sans le savoir
+  </div>
+  <div class="div au d2"></div>
+  <div class="g4 au d3" style="margin-top:8px;">
+    <div class="gl" style="text-align:center;">
+      <div class="ico ico-red" style="margin:0 auto 12px;">⏱️</div>
+      <div class="stat-big red">125<span style="font-size:.5em">h</span></div>
+      <div class="stat-lbl">heures perdues / mois<br><span style="color:var(--red);opacity:.8">par magasin de 5 000 réf.</span></div>
+    </div>
+    <div class="gl" style="text-align:center;">
+      <div class="ico ico-red" style="margin:0 auto 12px;">💸</div>
+      <div class="stat-big red">17 284<span style="font-size:.4em"> EGP</span></div>
+      <div class="stat-lbl">coût papier / mois<br><span style="color:var(--red);opacity:.8">main-d'œuvre + matériaux + erreurs</span></div>
+    </div>
+    <div class="gl" style="text-align:center;">
+      <div class="ico ico-red" style="margin:0 auto 12px;">📉</div>
+      <div class="stat-big red">27%</div>
+      <div class="stat-lbl">de la masse salariale<br><span style="color:var(--red);opacity:.8">gaspillée en étiquetage manuel</span></div>
+    </div>
+    <div class="gl" style="text-align:center;">
+      <div class="ico ico-red" style="margin:0 auto 12px;">⚖️</div>
+      <div class="stat-big red">2 800<span style="font-size:.4em"> EGP</span></div>
+      <div class="stat-lbl">amendes / mois<br><span style="color:var(--red);opacity:.8">non-conformité prix (Protection Conso.)</span></div>
+    </div>
+  </div>
+  <div class="gl au d4" style="margin-top:16px;width:100%;max-width:1100px;">
+    <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:10px;"><span class="ico ico-red" style="width:36px;height:36px;font-size:1em;">🔴</span><span style="font-size:.82em;opacity:.8;">15% des références changent de prix <strong>chaque semaine</strong> en 2026 (inflation)</span></div>
+      <div style="display:flex;align-items:center;gap:10px;"><span class="ico ico-red" style="width:36px;height:36px;font-size:1em;">🔴</span><span style="font-size:.82em;opacity:.8;">2,5 min / étiquette · <strong>9,4 heures d'étiquetage</strong> pour 225 changements/semaine</span></div>
+      <div style="display:flex;align-items:center;gap:10px;"><span class="ico ico-red" style="width:36px;height:36px;font-size:1em;">🔴</span><span style="font-size:.82em;opacity:.8;"><strong>345 USD / mois</strong> en coûts opérationnels directs évitables</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3 : LA SOLUTION ESL -->
+<div class="slide">
+  <div class="tag tag-green au" style="margin-bottom:16px;">✅ &nbsp;LA SOLUTION ESL — ELECTRONIC SHELF LABELS</div>
+  <div class="hero au d1" style="font-size:clamp(1.3em,3vw,2.1em);">Mettez à jour <span class="green">5 000 prix en 30 secondes</span><br>depuis votre bureau</div>
+  <div class="div au d2"></div>
+  <div class="g3 au d3" style="margin-top:8px;">
+    <div class="gl">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><div class="ico ico-green">⚡</div><strong>Mise à jour instantanée</strong></div>
+      <div style="font-size:.82em;opacity:.75;line-height:1.7;">Changement de prix en masse en <strong style="color:var(--green);">30 secondes</strong>. Fini les allers-retours en rayon. Vos équipes se concentrent sur l'accueil client.</div>
+    </div>
+    <div class="gl">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><div class="ico ico-green">🎯</div><strong>Conformité garantie</strong></div>
+      <div style="font-size:.82em;opacity:.75;line-height:1.7;">Prix vitrines = prix caisse <strong style="color:var(--green);">100% du temps</strong>. Zéro amende Protection Consommateur. Conformité légale automatique.</div>
+    </div>
+    <div class="gl">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><div class="ico ico-green">📊</div><strong>Pricing dynamique</strong></div>
+      <div style="font-size:.82em;opacity:.75;line-height:1.7;">Promotions flash, heures creuses, gestion des DLC. <strong style="color:var(--green);">+8 à 15%</strong> de revenus via l'optimisation tarifaire en temps réel.</div>
+    </div>
+    <div class="gl">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><div class="ico ico-gold">🔋</div><strong>Durée de vie 10 ans</strong></div>
+      <div style="font-size:.82em;opacity:.75;line-height:1.7;">Batterie 10 ans, résistant à l'humidité. Infrastructure WiFi intégrée. <strong style="color:var(--gold);">Investissement unique</strong> sur une décennie.</div>
+    </div>
+    <div class="gl">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><div class="ico ico-blue">🏆</div><strong>Image premium</strong></div>
+      <div style="font-size:.82em;opacity:.75;line-height:1.7;">Carrefour, Leclerc, Walmart, Monoprix utilisent les ESL. Positionnez votre enseigne parmi les <strong style="color:var(--blue);">leaders mondiaux</strong>.</div>
+    </div>
+    <div class="gl">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><div class="ico ico-gold">🇪🇬</div><strong>Certifié Égypte</strong></div>
+      <div style="font-size:.82em;opacity:.75;line-height:1.7;">Solution homologuée par <strong style="color:var(--gold);">ETAG Egypt</strong>. Support local, installation rapide. Déploiement en <strong>4 semaines</strong> par magasin.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4 : 3 SCÉNARIOS FINANCIERS -->
+<div class="slide">
+  <div class="tag tag-gold au" style="margin-bottom:12px;">💰 &nbsp;ANALYSE FINANCIÈRE — 3 TYPES DE MAGASINS</div>
+  <div class="hero au d1" style="font-size:clamp(1.2em,2.5vw,1.8em);margin-bottom:8px;">Votre profil, votre <span class="gold">retour sur investissement</span></div>
+  <div class="div au d2" style="margin:8px auto 12px;"></div>
+  <div class="g3 au d3" style="max-width:1100px;">
+
+    <!-- Épicerie -->
+    <div class="gl" style="border-color:rgba(0,192,127,.3);">
+      <div class="cmp-hdr" style="color:var(--green);">🏪 ÉPICERIE / PETIT SUPERM.</div>
+      <div class="cmp-val" style="color:var(--green);font-size:1.2em;">1 500 références</div>
+      <div style="height:1px;background:rgba(255,255,255,.08);margin:12px 0;"></div>
+      <table class="tbl" style="font-size:.8em;">
+        <tr><td>Employés étiquetage</td><td style="color:#fff;">1</td></tr>
+        <tr><td>Coût papier / mois</td><td style="color:var(--red);">5 800 EGP</td></tr>
+        <tr><td>Coût papier / an</td><td style="color:var(--red);">69 600 EGP</td></tr>
+        <tr><td>Investissement ESL</td><td style="color:var(--gold);">750 000 EGP</td></tr>
+        <tr><td>Économie nette / an</td><td style="color:var(--green);">55 000 EGP</td></tr>
+        <tr><td>Payback</td><td style="color:var(--gold);">~13 mois</td></tr>
+        <tr style="border-top:1px solid rgba(255,210,0,.2);"><td>ROI Année 1</td><td style="color:var(--gold);font-size:1.2em;">+73%</td></tr>
+      </table>
+      <div class="bar-wrap" style="margin-top:10px;"><div class="bar-fill" style="width:73%;background:linear-gradient(90deg,#00875A,var(--green));"></div></div>
+    </div>
+
+    <!-- Supermarché -->
+    <div class="gl" style="border-color:rgba(255,210,0,.4);transform:scale(1.02);">
+      <div class="cmp-hdr" style="color:var(--gold);">⭐ SUPERMARCHÉ STANDARD</div>
+      <div class="cmp-val" style="color:var(--gold);">5 000 références</div>
+      <div class="tag tag-gold" style="margin:4px auto 0;display:block;text-align:center;font-size:.65em;">PROFIL SPINNEY'S / METRO</div>
+      <div style="height:1px;background:rgba(255,255,255,.08);margin:10px 0;"></div>
+      <table class="tbl" style="font-size:.8em;">
+        <tr><td>Employés étiquetage</td><td style="color:#fff;">3</td></tr>
+        <tr><td>Coût papier / mois</td><td style="color:var(--red);">17 284 EGP</td></tr>
+        <tr><td>Coût papier / an</td><td style="color:var(--red);">207 400 EGP</td></tr>
+        <tr><td>Investissement ESL</td><td style="color:var(--gold);">1 800 000 EGP</td></tr>
+        <tr><td>Économie nette / an</td><td style="color:var(--green);">193 000 EGP</td></tr>
+        <tr><td>Payback</td><td style="color:var(--gold);">~9 mois</td></tr>
+        <tr style="border-top:1px solid rgba(255,210,0,.2);"><td>ROI Année 1</td><td style="color:var(--gold);font-size:1.2em;">+107%</td></tr>
+      </table>
+      <div class="bar-wrap" style="margin-top:10px;"><div class="bar-fill" style="width:100%;"></div></div>
+    </div>
+
+    <!-- Hypermarché -->
+    <div class="gl" style="border-color:rgba(26,115,232,.3);">
+      <div class="cmp-hdr" style="color:var(--blue);">🏬 HYPERMARCHÉ</div>
+      <div class="cmp-val" style="color:var(--blue);font-size:1.2em;">15 000 références</div>
+      <div class="tag" style="background:rgba(26,115,232,.12);color:var(--blue);border:1px solid rgba(26,115,232,.3);margin:4px auto 0;display:block;text-align:center;font-size:.65em;">PROFIL HYPER ONE / CARREFOUR</div>
+      <div style="height:1px;background:rgba(255,255,255,.08);margin:10px 0;"></div>
+      <table class="tbl" style="font-size:.8em;">
+        <tr><td>Employés étiquetage</td><td style="color:#fff;">8</td></tr>
+        <tr><td>Coût papier / mois</td><td style="color:var(--red);">100 000 EGP</td></tr>
+        <tr><td>Coût papier / an</td><td style="color:var(--red);">1 200 000 EGP</td></tr>
+        <tr><td>Investissement ESL</td><td style="color:var(--gold);">5 000 000 EGP</td></tr>
+        <tr><td>Économie nette / an</td><td style="color:var(--green);">1 130 000 EGP</td></tr>
+        <tr><td>Payback</td><td style="color:var(--gold);">~4 mois</td></tr>
+        <tr style="border-top:1px solid rgba(255,210,0,.2);"><td>ROI Année 1</td><td style="color:var(--gold);font-size:1.2em;">+226%</td></tr>
+      </table>
+      <div class="bar-wrap" style="margin-top:10px;"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#1A3A8C,var(--blue));"></div></div>
+    </div>
+  </div>
+  <div class="au d4" style="font-size:.72em;opacity:.45;margin-top:8px;text-align:center;">Hypothèses : 15% de changements/semaine · 2,5 min/étiquette · EGP/USD = 50 · ESL à 6 USD/unité (ETAG Egypt 2026)</div>
+</div>
+
+<!-- SLIDE 5 : CALCULATEUR ROI INTERACTIF -->
+<div class="slide">
+  <div class="tag tag-gold au" style="margin-bottom:12px;">🔢 &nbsp;CALCULATEUR ROI — VOTRE MAGASIN</div>
+  <div class="hero au d1" style="font-size:clamp(1.2em,2.5vw,1.7em);margin-bottom:8px;">Simulez l'économie pour <span class="gold">votre enseigne</span></div>
+  <div class="div au d2" style="margin:8px auto 14px;"></div>
+  <div class="g2 au d3" style="max-width:980px;align-items:start;">
+    <div class="gl" style="display:flex;flex-direction:column;gap:16px;">
+      <div class="calc-row">
+        <span class="calc-lbl">📦 Nombre de références</span>
+        <input type="range" id="refs" min="500" max="25000" step="500" value="5000" oninput="calc()">
+        <span class="calc-val" id="vRefs">5 000</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-lbl">👥 Employés étiquetage</span>
+        <input type="range" id="emp" min="1" max="15" step="1" value="3" oninput="calc()">
+        <span class="calc-val" id="vEmp">3</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-lbl">💰 Salaire moyen (EGP/mois)</span>
+        <input type="range" id="sal" min="3000" max="8000" step="100" value="4500" oninput="calc()">
+        <span class="calc-val" id="vSal">4 500</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-lbl">🔄 Fréquence changements (%/sem.)</span>
+        <input type="range" id="freq" min="5" max="30" step="1" value="15" oninput="calc()">
+        <span class="calc-val" id="vFreq">15%</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-lbl">🏷️ Prix ESL (EGP/unité)</span>
+        <input type="range" id="prixesl" min="150" max="500" step="10" value="300" oninput="calc()">
+        <span class="calc-val" id="vPrix">300</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="result-box">
+        <div class="rb-item"><div class="rb-val" id="rCout">—</div><div class="rb-lbl">Coût papier / mois (EGP)</div></div>
+        <div style="width:1px;height:50px;background:rgba(255,255,255,.12);"></div>
+        <div class="rb-item"><div class="rb-val" id="rInvest">—</div><div class="rb-lbl">Investissement ESL (EGP)</div></div>
+        <div style="width:1px;height:50px;background:rgba(255,255,255,.12);"></div>
+        <div class="rb-item"><div class="rb-val" id="rPayback">—</div><div class="rb-lbl">Payback (mois)</div></div>
+      </div>
+      <div class="gl">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="text-align:center;padding:10px;background:rgba(0,192,127,.08);border-radius:10px;border:1px solid rgba(0,192,127,.2);">
+            <div style="font-size:1.6em;font-weight:900;color:var(--green);" id="rRoi1">—</div>
+            <div style="font-size:.72em;opacity:.65;margin-top:3px;">ROI Année 1</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(255,210,0,.08);border-radius:10px;border:1px solid rgba(255,210,0,.2);">
+            <div style="font-size:1.6em;font-weight:900;color:var(--gold);" id="rRoi3">—</div>
+            <div style="font-size:.72em;opacity:.65;margin-top:3px;">ROI 3 ans</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(26,115,232,.08);border-radius:10px;border:1px solid rgba(26,115,232,.2);">
+            <div style="font-size:1.6em;font-weight:900;color:var(--blue);" id="rEco">—</div>
+            <div style="font-size:.72em;opacity:.65;margin-top:3px;">Économie / an (EGP)</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(255,75,75,.08);border-radius:10px;border:1px solid rgba(255,75,75,.2);">
+            <div style="font-size:1.6em;font-weight:900;color:var(--red);" id="rHours">—</div>
+            <div style="font-size:.72em;opacity:.65;margin-top:3px;">Heures récup. / mois</div>
+          </div>
+        </div>
+      </div>
+      <div class="gl" style="font-size:.78em;opacity:.65;text-align:center;padding:10px 16px;">
+        📌 Hypothèses conservatives : main-d'œuvre + matériaux + amendes (2 800 EGP/mois) · hors gains revenus dynamiques
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6 : PROJECTION 5 ANS -->
+<div class="slide">
+  <div class="tag tag-gold au" style="margin-bottom:14px;">📈 &nbsp;PROJECTION FINANCIÈRE — SUPERMARCHÉ 5 000 RÉFS</div>
+  <div class="hero au d1" style="font-size:clamp(1.2em,2.8vw,2em);margin-bottom:6px;">L'ESL se <span class="green">finance lui-même</span> dès l'an 1</div>
+  <div class="div au d2" style="margin:8px auto 14px;"></div>
+  <div class="g2 au d3" style="max-width:1100px;align-items:start;">
+    <div class="gl">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th style="text-align:left;">Poste</th>
+            <th>An 0</th><th>An 1</th><th>An 2</th><th>An 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Investissement ESL</td><td style="color:var(--red);">(1 800 000)</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Économies papier</td><td>—</td><td style="color:var(--green);">207 400</td><td style="color:var(--green);">207 400</td><td style="color:var(--green);">207 400</td></tr>
+          <tr><td>Gains pricing dynamique</td><td>—</td><td style="color:var(--green);">85 000</td><td style="color:var(--green);">85 000</td><td style="color:var(--green);">85 000</td></tr>
+          <tr><td>Maintenance ESL</td><td>—</td><td style="color:var(--red);">(27 000)</td><td style="color:var(--red);">(27 000)</td><td style="color:var(--red);">(27 000)</td></tr>
+          <tr><td style="color:var(--gold);font-weight:700;">Flux net annuel</td><td style="color:var(--red);">(1 800 000)</td><td style="color:var(--gold);">265 400</td><td style="color:var(--gold);">265 400</td><td style="color:var(--gold);">265 400</td></tr>
+          <tr><td style="color:var(--gold);font-weight:700;">Cash-flow cumulé</td><td style="color:var(--red);">(1 800 000)</td><td style="color:var(--red);">(1 534 600)</td><td style="color:var(--red);">(1 269 200)</td><td style="color:var(--gold);">+(530 000)</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:.75em;opacity:.55;text-align:center;">Toutes valeurs en EGP · Gains pricing = +0,5% revenus sur CA estimé 17M EGP/an</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="gl" style="text-align:center;">
+        <div style="font-size:.8em;opacity:.6;margin-bottom:6px;">PAYBACK RÉEL (avec pricing dynamique)</div>
+        <div style="font-size:3em;font-weight:900;color:var(--gold);">6,8</div>
+        <div style="font-size:.85em;opacity:.75;">mois</div>
+        <div class="bar-wrap" style="margin-top:10px;"><div class="bar-fill" style="width:57%;"></div></div>
+      </div>
+      <div class="gl">
+        <div style="font-size:.78em;font-weight:700;color:var(--gold);margin-bottom:10px;">🏆 INDICATEURS CLÉS</div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+          <span style="font-size:.8em;opacity:.7;">ROI Année 1</span>
+          <span style="font-size:.9em;font-weight:700;color:var(--green);">+147%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+          <span style="font-size:.8em;opacity:.7;">ROI 3 ans</span>
+          <span style="font-size:.9em;font-weight:700;color:var(--green);">+342%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+          <span style="font-size:.8em;opacity:.7;">ROI 5 ans</span>
+          <span style="font-size:.9em;font-weight:700;color:var(--green);">+637%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;">
+          <span style="font-size:.8em;opacity:.7;">Économie 5 ans</span>
+          <span style="font-size:.9em;font-weight:700;color:var(--gold);">1 327 000 EGP</span>
+        </div>
+      </div>
+      <div class="gl" style="background:rgba(0,192,127,.07);border-color:rgba(0,192,127,.25);">
+        <div style="font-size:.82em;line-height:1.7;opacity:.85;">
+          💡 <strong style="color:var(--green);">En 3 ans</strong>, l'ESL génère <strong style="color:var(--green);">530 000 EGP de profit net</strong> après remboursement complet de l'investissement.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7 : CONTACT / CTA -->
+<div class="slide">
+  <div class="af" style="font-size:3.5em;margin-bottom:16px;">🚀</div>
+  <div class="hero au d1" style="max-width:750px;">Prêt à <span class="shine">moderniser</span><br>votre enseigne ?</div>
+  <div class="div au d2"></div>
+  <div class="sub au d3" style="max-width:600px;">Déploiement en <strong>4 semaines</strong> · Garantie 2 ans · Support local Égypte<br>Pilote gratuit sur <strong>1 rayon</strong> pour valider le ROI avant déploiement total</div>
+  <div class="g2 au d4" style="max-width:700px;margin-top:24px;">
+    <div class="gl" style="text-align:center;border-color:rgba(255,210,0,.3);">
+      <div style="font-size:1.5em;margin-bottom:8px;">📞</div>
+      <div style="font-weight:700;color:var(--gold);margin-bottom:4px;">SuccessBridge Egypt</div>
+      <div style="font-size:.82em;opacity:.7;">Partenaire officiel ETAG<br>pour l'Égypte</div>
+    </div>
+    <div class="gl" style="text-align:center;border-color:rgba(0,192,127,.3);">
+      <div style="font-size:1.5em;margin-bottom:8px;">🎯</div>
+      <div style="font-weight:700;color:var(--green);margin-bottom:4px;">Pilote offert</div>
+      <div style="font-size:.82em;opacity:.7;">1 rayon · 200 étiquettes<br>sans engagement</div>
+    </div>
+  </div>
+  <div class="au d5" style="display:flex;gap:14px;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+    <div style="display:flex;align-items:center;gap:8px;font-size:.82em;opacity:.65;"><span>✅</span>GS1 Egypt certifié</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:.82em;opacity:.65;"><span>✅</span>Conforme protection consommateur</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:.82em;opacity:.65;"><span>✅</span>Intégration ERP / SAP / Odoo</div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:.82em;opacity:.65;"><span>✅</span>Formation équipes incluse</div>
+  </div>
+  <div class="au d6" style="margin-top:20px;font-size:.72em;opacity:.35;">Source : Nielsen Egypt · GS1 · Banque Centrale d'Égypte · Pricer AB · ETAG — Modèle financier SuccessBridge, Mai 2026</div>
+</div>
+
+</div><!-- end deck -->
+
+<!-- NAVIGATION -->
+<div id="nav">
+  <div id="dots"></div>
+  <span id="snum">1 / 7</span>
+  <button class="nbtn" id="bprev" title="Précédent (←)">◀</button>
+  <button class="nbtn" id="bnext" title="Suivant (→)">▶</button>
+</div>
+
+<script>
+// PARTICLES
+const pts=document.getElementById('pts');
+for(let i=0;i<25;i++){
+  const p=document.createElement('div');p.className='pt';
+  const s=2+Math.random()*5;
+  const c=['rgba(255,210,0,.6)','rgba(26,115,232,.5)','rgba(0,192,127,.5)','rgba(255,255,255,.3)'];
+  p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${c[Math.floor(Math.random()*c.length)]};animation-duration:${8+Math.random()*12}s;animation-delay:${-Math.random()*15}s;`;
+  pts.appendChild(p);
+}
+
+// SLIDES
+const slides=document.querySelectorAll('.slide');
+const N=slides.length;
+let cur=0;
+
+const dotsEl=document.getElementById('dots');
+const snumEl=document.getElementById('snum');
+for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot'+(i===0?' on':'');d.addEventListener('click',()=>go(i));dotsEl.appendChild(d);}
+
+function go(n){
+  slides[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('on');
+  cur=Math.max(0,Math.min(N-1,n));
+  slides[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('on');
+  snumEl.textContent=(cur+1)+' / '+N;
+  // re-trigger animations
+  slides[cur].querySelectorAll('[class*="au"],[class*="ap"]').forEach(el=>{
+    const old=el.style.animation;el.style.animation='none';
+    requestAnimationFrame(()=>{el.style.animation=old;});
+  });
+}
+
+document.getElementById('bprev').addEventListener('click',()=>go(cur-1));
+document.getElementById('bnext').addEventListener('click',()=>go(cur+1));
+document.addEventListener('keydown',e=>{
+  if(e.code==='ArrowRight'||e.code==='Space'){e.preventDefault();go(cur+1);}
+  if(e.code==='ArrowLeft'){e.preventDefault();go(cur-1);}
+});
+// Swipe
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?cur+1:cur-1);});
+
+// ROI CALCULATOR
+function fmt(n){return Math.round(n).toLocaleString('fr-FR');}
+function calc(){
+  const refs=+document.getElementById('refs').value;
+  const emp=+document.getElementById('emp').value;
+  const sal=+document.getElementById('sal').value;
+  const freq=+document.getElementById('freq').value/100;
+  const prixesl=+document.getElementById('prixesl').value;
+
+  document.getElementById('vRefs').textContent=fmt(refs);
+  document.getElementById('vEmp').textContent=emp;
+  document.getElementById('vSal').textContent=fmt(sal);
+  document.getElementById('vFreq').textContent=Math.round(freq*100)+'%';
+  document.getElementById('vPrix').textContent=fmt(prixesl);
+
+  const rate=sal/(8*26);
+  const etiq_week=refs*freq;
+  const hours_week=etiq_week*2.5/60;
+  const hours_month=hours_week*4;
+  const labor_month=hours_week*rate*emp*4;
+  const opp_month=labor_month*0.35;
+  const materials_month=(etiq_week*52/6*95/500+etiq_week*52/6/1500*350)/12;
+  const fines_month=2800*(refs/5000);
+  const maintenance_month=400;
+  const total_month=labor_month+opp_month+materials_month+fines_month+maintenance_month;
+
+  const invest=(refs*prixesl)+(Math.max(1,Math.ceil(refs/3000))*60000)+300000;
+  const eco_an=total_month*12;
+  const maintenance_esl_an=invest*0.015;
+  const net_an=eco_an-maintenance_esl_an;
+  const payback=net_an>0?invest/net_an*12:999;
+  const roi1=net_an/invest;
+  const roi3=net_an*3/invest;
+
+  document.getElementById('rCout').textContent=fmt(total_month)+' EGP';
+  document.getElementById('rInvest').textContent=fmt(invest)+' EGP';
+  document.getElementById('rPayback').textContent=payback<100?fmt(payback)+' mois':'> 8 ans';
+  document.getElementById('rRoi1').textContent=roi1>0?'+'+Math.round(roi1*100)+'%':'—';
+  document.getElementById('rRoi3').textContent=roi3>0?'+'+Math.round(roi3*100)+'%':'—';
+  document.getElementById('rEco').textContent=fmt(eco_an);
+  document.getElementById('rHours').textContent=fmt(hours_month)+'h';
+}
+calc();
+</script>
+</body>
+</html>
